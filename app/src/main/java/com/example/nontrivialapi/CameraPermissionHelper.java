@@ -24,6 +24,8 @@ import android.provider.Settings;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
+//CLASS INCLUDED WITH ARCORE
+
 /** Helper to ask camera permission. */
 public final class CameraPermissionHelper {
     private static final int CAMERA_PERMISSION_CODE = 0;
