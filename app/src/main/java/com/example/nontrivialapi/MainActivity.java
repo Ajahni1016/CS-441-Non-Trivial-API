@@ -12,7 +12,7 @@ import com.google.ar.core.exceptions.UnavailableArcoreNotInstalledException;
 import com.google.ar.core.exceptions.UnavailableDeviceNotCompatibleException;
 import com.google.ar.core.exceptions.UnavailableSdkTooOldException;
 import com.google.ar.core.exceptions.UnavailableUserDeclinedInstallationException;
-
+import android.opengl.GLSurfaceView;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
@@ -52,56 +52,65 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private boolean mUserRequestedInstall = true;
-    Session mSession;
+    private Session mSession;
+    private boolean installRequested;
+//    private final SnackbarHelper messageSnackbarHelper = new SnackbarHelper();
+
+
     @Override
     protected void onResume() {
         super.onResume();
-        //Checking Camera Permissions
-        if (!CameraPermissionHelper.hasCameraPermission(this)) {
-            CameraPermissionHelper.requestCameraPermission(this);
-            return;
-        }
-        //Making sure all required services are installed and up to date
-        try {
-            if (mSession == null) {
-                switch (ArCoreApk.getInstance().requestInstall(this, mUserRequestedInstall)) {
-                    case INSTALLED:
-                        mSession = new Session(this);
-                        break;
+
+        if (mSession == null) {
+            Exception exception = null;
+            String message = null;
+            try {
+                switch (ArCoreApk.getInstance().requestInstall(this, !installRequested)) {
                     case INSTALL_REQUESTED:
-                        mUserRequestedInstall = false;
+                        installRequested = true;
                         return;
+                    case INSTALLED:
+                        break;
                 }
+
+                // ARCore requires camera permissions to operate. If we did not yet obtain runtime
+                // permission on Android M and above, now is a good time to ask the user for it.
+                if (!CameraPermissionHelper.hasCameraPermission(this)) {
+                    System.out.println("Camera not being used");
+                    CameraPermissionHelper.requestCameraPermission(this);
+                    return;
+                }
+
+                // Create the session.
+                mSession = new Session(/* context= */ this);
+            } catch (UnavailableArcoreNotInstalledException
+                    | UnavailableUserDeclinedInstallationException e) {
+                message = "Please install ARCore";
+                exception = e;
+            } catch (UnavailableApkTooOldException e) {
+                message = "Please update ARCore";
+                exception = e;
+            } catch (UnavailableSdkTooOldException e) {
+                message = "Please update this app";
+                exception = e;
+            } catch (UnavailableDeviceNotCompatibleException e) {
+                message = "This device does not support AR";
+                exception = e;
+            } catch (Exception e) {
+                message = "Failed to create AR session";
+                exception = e;
             }
-        }
-        catch(UnavailableUserDeclinedInstallationException | UnavailableDeviceNotCompatibleException e){
-            Toast.makeText(this,"Exception"+e,Toast.LENGTH_LONG);
-            return;
-        } catch (UnavailableArcoreNotInstalledException e) {
-            e.printStackTrace();
-        } catch (UnavailableSdkTooOldException e) {
-            e.printStackTrace();
-        } catch (UnavailableApkTooOldException e) {
-            e.printStackTrace();
+
+//            if (message != null) {
+//                messageSnackbarHelper.showError(this, message);
+//                Log.e(TAG, "Exception creating session", exception);
+//                return;
+//            }
         }
 
-
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] results) {
-        super.onRequestPermissionsResult(requestCode, permissions, results);
-        if (!CameraPermissionHelper.hasCameraPermission(this)) {
-            Toast.makeText(this, "Camera permission is needed to run this application", Toast.LENGTH_LONG)
-                    .show();
-            if (!CameraPermissionHelper.shouldShowRequestPermissionRationale(this)) {
-                // Permission denied with checking "Do not ask again".
-                CameraPermissionHelper.launchPermissionSettings(this);
-            }
-            finish();
-        }
     }
 }
+
 
 //metehan
 //switched to mac/xcode/swift this week to test it out
