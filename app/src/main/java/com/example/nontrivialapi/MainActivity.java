@@ -33,7 +33,6 @@ public class MainActivity extends AppCompatActivity {
     void maybeEnableArButton() {
         ArCoreApk.Availability availability = ArCoreApk.getInstance().checkAvailability(this);
         if (availability.isTransient()) {
-            // Continue to query availability at 5Hz while compatibility is checked in the background.
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
@@ -65,13 +64,11 @@ public class MainActivity extends AppCompatActivity {
                         break;
                 }
 
-                // ARCore requires camera permissions to operate. If we did not yet obtain runtime
-                // permission on Android M and above, now is a good time to ask the user for it.
-                if (!CameraPermissionHelper.hasCameraPermission(this)) {
-                    System.out.println("Camera not being used");
-                    CameraPermissionHelper.requestCameraPermission(this);
-                    return;
-                }
+//                if (!CameraPermissionHelper.hasCameraPermission(this)) {
+//                    System.out.println("Camera not being used");
+//                    CameraPermissionHelper.requestCameraPermission(this);
+//                    return;
+//                }
 
                 // Create the session.
                 mSession = new Session(/* context= */ this);
