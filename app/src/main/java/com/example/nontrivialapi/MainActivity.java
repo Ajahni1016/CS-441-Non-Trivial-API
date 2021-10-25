@@ -41,14 +41,6 @@ public class MainActivity extends AppCompatActivity {
                 }
             }, 200);
         }
-//        View mArButton = null;
-//        if (availability.isSupported()) {
-//            mArButton.setVisibility(View.VISIBLE);
-//            mArButton.setEnabled(true);
-//        } else { // The device is unsupported or unknown.
-//            mArButton.setVisibility(View.INVISIBLE);
-//            mArButton.setEnabled(false);
-//        }
     }
 
     private boolean mUserRequestedInstall = true;
@@ -109,6 +101,8 @@ public class MainActivity extends AppCompatActivity {
         }
 
     }
+
+
 }
 
 
