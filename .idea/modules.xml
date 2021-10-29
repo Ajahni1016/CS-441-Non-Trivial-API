@@ -4,6 +4,8 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/Non_Trivial_API.iml" filepath="$PROJECT_DIR$/.idea/modules/Non_Trivial_API.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/Non_Trivial_API.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/Non_Trivial_API.app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/sceneformsrc/sceneform/Non_Trivial_API.sceneform.iml" filepath="$PROJECT_DIR$/.idea/modules/sceneformsrc/sceneform/Non_Trivial_API.sceneform.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/sceneformux/ux/Non_Trivial_API.sceneformux.iml" filepath="$PROJECT_DIR$/.idea/modules/sceneformux/ux/Non_Trivial_API.sceneformux.iml" />
     </modules>
   </component>
 </project>

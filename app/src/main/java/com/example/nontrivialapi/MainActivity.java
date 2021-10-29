@@ -12,9 +12,11 @@ import com.google.ar.core.exceptions.UnavailableArcoreNotInstalledException;
 import com.google.ar.core.exceptions.UnavailableDeviceNotCompatibleException;
 import com.google.ar.core.exceptions.UnavailableSdkTooOldException;
 import com.google.ar.core.exceptions.UnavailableUserDeclinedInstallationException;
+import com.google.ar.sceneform.AnchorNode;
 import com.google.ar.sceneform.assets.RenderableSource;
 import com.google.ar.sceneform.rendering.ModelRenderable;
 import com.google.ar.sceneform.ux.ArFragment;
+import com.google.ar.sceneform.ux.TransformableNode;
 
 import android.net.Uri;
 import android.opengl.GLSurfaceView;
@@ -33,11 +35,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        cam_view = findViewById(R.id.cam_view);
-
         arFragment = (ArFragment) getSupportFragmentManager().findFragmentById(R.id.cam_view);
         setUpModel();
-
+        setUpPlane();
 
     }
 
@@ -48,6 +48,21 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    private void setUpPlane(){
+        arFragment.setOnTapArPlaneListener(((hitResult, plane, motionEvent) -> {
+            Anchor anchor = hitResult.createAnchor();
+            AnchorNode anchorNode = new AnchorNode(anchor);
+            anchorNode.setParent(arFragment.getArSceneView().getScene());
+            createModel(anchorNode);
+        }));
+    }
+
+    private void createModel(AnchorNode anchorNode){
+        TransformableNode node = new TransformableNode(arFragment.getTransformationSystem());
+        node.setParent(anchorNode);
+        node.setRenderable(modelRenderable);
+        node.select();
+    }
 
 //    @Override
 //    protected void onResume() {
