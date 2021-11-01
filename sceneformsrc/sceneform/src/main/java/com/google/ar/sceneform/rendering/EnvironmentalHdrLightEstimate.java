@@ -2,9 +2,7 @@ package com.google.ar.sceneform.rendering;
 
 import android.media.Image;
 import android.media.Image.Plane;
-
-import androidx.annotation.Nullable;
-
+import android.support.annotation.Nullable;
 import com.google.ar.core.annotations.UsedByReflection;
 import java.io.Serializable;
 import java.nio.ByteBuffer;

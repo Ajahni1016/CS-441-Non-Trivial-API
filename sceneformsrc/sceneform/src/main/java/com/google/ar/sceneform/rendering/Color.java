@@ -1,8 +1,6 @@
 package com.google.ar.sceneform.rendering;
 
-
-import androidx.annotation.ColorInt;
-
+import android.support.annotation.ColorInt;
 import com.google.android.filament.Colors;
 
 /**
