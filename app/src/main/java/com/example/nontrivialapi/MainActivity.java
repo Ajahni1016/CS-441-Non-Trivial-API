@@ -1,19 +1,8 @@
 package com.example.nontrivialapi;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import com.google.ar.core.Anchor;
-import com.google.ar.core.ArCoreApk;
-import com.google.ar.core.HitResult;
-import com.google.ar.core.Plane;
-import com.google.ar.core.Session;
-import com.google.ar.core.exceptions.UnavailableApkTooOldException;
-import com.google.ar.core.exceptions.UnavailableArcoreNotInstalledException;
-import com.google.ar.core.exceptions.UnavailableDeviceNotCompatibleException;
-import com.google.ar.core.exceptions.UnavailableSdkTooOldException;
-import com.google.ar.core.exceptions.UnavailableUserDeclinedInstallationException;
 import com.google.ar.sceneform.AnchorNode;
-import com.google.ar.sceneform.assets.RenderableSource;
+import com.google.ar.sceneform.rendering.Renderable;
 import com.google.ar.sceneform.rendering.ModelRenderable;
 import com.google.ar.sceneform.ux.ArFragment;
 import com.google.ar.sceneform.ux.TransformableNode;
@@ -21,15 +10,17 @@ import com.google.ar.sceneform.ux.TransformableNode;
 import android.net.Uri;
 import android.opengl.GLSurfaceView;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Display;
 import android.view.MotionEvent;
 import android.widget.Toast;
 
+import java.lang.ref.WeakReference;
+
 public class MainActivity extends AppCompatActivity {
 
     private ArFragment arFragment;
-    private GLSurfaceView cam_view;
-    private ModelRenderable modelRenderable;
+    private Renderable renderable;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,9 +33,22 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setUpModel() {
-        ModelRenderable.builder().setSource(this, RenderableSource.builder().setSource(this, Uri.parse("BaxterModel.obj"), RenderableSource.SourceType.GLB)
-                .setScale(1.0f).setRecenterMode(RenderableSource.RecenterMode.ROOT).build())
-                .setRegistryId("BaxterModel.obj").build().thenAccept(renderable->modelRenderable=renderable);
+        WeakReference<MainActivity> weakActivity = new WeakReference<>(this);
+
+        ModelRenderable.builder()
+                .setSource(
+                        this,
+                        Uri.parse(
+                                "https://storage.googleapis.com/ar-answers-in-search-models/static/Tiger/model.glb"))
+                .setIsFilamentGltf(true)
+                .build()
+                .thenAccept(
+                        modelRenderable -> {
+                            MainActivity activity = weakActivity.get();
+                            if (activity != null) {
+                                activity.renderable = modelRenderable;
+                            }
+                        });
 
     }
 
@@ -60,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
     private void createModel(AnchorNode anchorNode){
         TransformableNode node = new TransformableNode(arFragment.getTransformationSystem());
         node.setParent(anchorNode);
-        node.setRenderable(modelRenderable);
+        node.setRenderable(renderable);
         node.select();
     }
 

@@ -1,9 +1,9 @@
 <component name="libraryTable">
   <library name="Gradle: com.google.android.filament:filament-android:1.4.5@aar">
     <CLASSES>
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/967b5d5f2b1ba50a2f2a7046cedad239/transformed/jetified-filament-android-1.4.5/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/967b5d5f2b1ba50a2f2a7046cedad239/transformed/jetified-filament-android-1.4.5/res" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/967b5d5f2b1ba50a2f2a7046cedad239/transformed/jetified-filament-android-1.4.5/AndroidManifest.xml" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/aa1de5c31f7eea61aae67afb0e62900d/transformed/jetified-filament-android-1.4.5/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/aa1de5c31f7eea61aae67afb0e62900d/transformed/jetified-filament-android-1.4.5/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/aa1de5c31f7eea61aae67afb0e62900d/transformed/jetified-filament-android-1.4.5/AndroidManifest.xml" />
     </CLASSES>
     <JAVADOC>
       <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.google.android.filament/filament-android/1.4.5/27bd7acd609061ea2a54d54edf7a02220582eef3/filament-android-1.4.5-javadoc.jar!/" />
