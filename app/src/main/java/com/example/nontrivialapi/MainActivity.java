@@ -2,6 +2,7 @@ package com.example.nontrivialapi;
 
 import com.google.ar.core.Anchor;
 import com.google.ar.sceneform.AnchorNode;
+import com.google.ar.sceneform.math.Vector3;
 import com.google.ar.sceneform.rendering.Renderable;
 import com.google.ar.sceneform.rendering.ModelRenderable;
 import com.google.ar.sceneform.ux.ArFragment;
@@ -37,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
                         Uri.parse(
                                 "https://github.com/Ajahni1016/CS-441-Non-Trivial-API/blob/master/app/sampledata/Baxter.glb?raw=true"))
                 .setIsFilamentGltf(true)
+
                 .build()
                 .thenAccept(
                         modelRenderable -> {
@@ -53,6 +55,7 @@ public class MainActivity extends AppCompatActivity {
             Anchor anchor = hitResult.createAnchor();
             AnchorNode anchorNode = new AnchorNode(anchor);
             anchorNode.setParent(arFragment.getArSceneView().getScene());
+            anchorNode.setLocalScale(new Vector3(0.4f,0.4f,0.4f));
             createModel(anchorNode);
         }));
     }
