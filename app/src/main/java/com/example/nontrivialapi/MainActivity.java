@@ -2,6 +2,8 @@ package com.example.nontrivialapi;
 
 import com.google.ar.core.Anchor;
 import com.google.ar.sceneform.AnchorNode;
+import com.google.ar.sceneform.rendering.Color;
+import com.google.ar.sceneform.rendering.Material;
 import com.google.ar.sceneform.rendering.Renderable;
 import com.google.ar.sceneform.rendering.ModelRenderable;
 import com.google.ar.sceneform.ux.ArFragment;
@@ -16,6 +18,8 @@ import android.view.MotionEvent;
 import android.widget.Toast;
 
 import java.lang.ref.WeakReference;
+import java.util.Arrays;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -39,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
                 .setSource(
                         this,
                         Uri.parse(
-                                "https://storage.googleapis.com/ar-answers-in-search-models/static/Tiger/model.glb"))
+                                "https://github.com/Ajahni1016/CS-441-Non-Trivial-API/blob/master/app/sampledata/BaxterModel.obj?raw=true"))
                 .setIsFilamentGltf(true)
                 .build()
                 .thenAccept(
@@ -67,62 +71,11 @@ public class MainActivity extends AppCompatActivity {
         node.setRenderable(renderable);
         node.select();
     }
-
-//    @Override
-//    protected void onResume() {
-//        super.onResume();
-//
-//        if (mSession == null) {
-//            Exception exception = null;
-//            String message = null;
-//            try {
-//                switch (ArCoreApk.getInstance().requestInstall(this, !installRequested)) {
-//                    case INSTALL_REQUESTED:
-//                        installRequested = true;
-//                        return;
-//                    case INSTALLED:
-//                        break;
-//                }
-//
-////                if (!CameraPermissionHelper.hasCameraPermission(this)) {
-////                    System.out.println("Camera not being used");
-////                    CameraPermissionHelper.requestCameraPermission(this);
-////                    return;
-////                }
-//
-//                // Create the session.
-//                mSession = new Session(/* context= */ this);
-//            } catch (UnavailableArcoreNotInstalledException
-//                    | UnavailableUserDeclinedInstallationException e) {
-//                message = "Please install ARCore";
-//                exception = e;
-//            } catch (UnavailableApkTooOldException e) {
-//                message = "Please update ARCore";
-//                exception = e;
-//            } catch (UnavailableSdkTooOldException e) {
-//                message = "Please update this app";
-//                exception = e;
-//            } catch (UnavailableDeviceNotCompatibleException e) {
-//                message = "This device does not support AR";
-//                exception = e;
-//            } catch (Exception e) {
-//                message = "Failed to create AR session";
-//                exception = e;
-//            }
-
-//            if (message != null) {
-//                messageSnackbarHelper.showError(this, message);
-//                Log.e(TAG, "Exception creating session", exception);
-//                return;
-//            }
-//        }
-
-//    }
-
-
 }
 
 
-//metehan
+    //metehan
 //switched to mac/xcode/swift this week to test it out
-//Still learning the ropes of xcode, so hasn't made much progress towards his app. Has been working on relearning the basics and hasn't started working on the api portion of the app yet
+//Still learning the ropes of xcode, so hasn't made much progress towards his
+//    app. Has been working on relearning the basics and hasn't started working on the
+//        api portion of the app yet
